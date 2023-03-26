@@ -1,11 +1,57 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import styles from "@/styles/Home.module.css";
+import s from "@/styles/homePage/tabs.module.css";
+import { useState } from "react";
+import { getproductsByCatagories } from "@/utils/productsByCatagories";
+import { ProductGrid } from "@/components/ui";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+interface Props {
+  laptops: Product[];
+  lighting: Product[];
+  smartphones: Product[];
+  automotive: Product[];
+}
+
+export default function Home({
+  laptops,
+  lighting,
+  smartphones,
+  automotive,
+}: Props) {
+  const [elec, setelec] = useState(true);
+  const [men, setmen] = useState(false);
+  const [women, setwonmen] = useState(false);
+  const [jewe, setjewe] = useState(false);
+
+  const activeElec = () => {
+    setelec(true);
+    setmen(false);
+    setwonmen(false);
+    setjewe(false);
+  };
+  const activeMen = () => {
+    setelec(false);
+    setmen(true);
+    setwonmen(false);
+    setjewe(false);
+  };
+  const activeWomen = () => {
+    setelec(false);
+    setmen(false);
+    setwonmen(true);
+    setjewe(false);
+  };
+  const activeJewe = () => {
+    setelec(false);
+    setmen(false);
+    setwonmen(false);
+    setjewe(true);
+  };
+
   return (
     <>
       <Head>
@@ -14,110 +60,71 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.tsx</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
+      <main className={`${styles.main} w-full`}>
+        <div className="border-b border-gray-200 dark:border-gray-700 w-full h-full mx-0 px-0 items-center text-center bg-white">
+          <ul className="flex flex- text-sm mx-auto font-semibold w-full p-auto justify-center items-center text-center text-gray-500 dark:text-gray-400 bg-white">
+            <li className="mr-2 w-full" onClick={activeElec}>
+              <p
+                className={`inline-flex p-4 rounded-t-lg hover:cursor-pointer ${
+                  elec ? s.activeTab : s.notActiveTab
+                } group`}
+              >
+                Laptops
+              </p>
+            </li>
+            <li className="mr-2 w-full" onClick={activeMen}>
+              <p
+                className={`inline-flex p-4 rounded-t-lg hover:cursor-pointer ${
+                  men ? s.activeTab : s.notActiveTab
+                } group`}
+                aria-current="page"
+              >
+                Smartphones
+              </p>
+            </li>
+            <li className="mr-2 w-full" onClick={activeWomen}>
+              <p
+                className={`inline-flex p-4 rounded-t-lg hover:cursor-pointer ${
+                  women ? s.activeTab : s.notActiveTab
+                } group`}
+              >
+                Lightings
+              </p>
+            </li>
+            <li className="mr-2 w-full" onClick={activeJewe}>
+              <p
+                className={`inline-flex p-4 rounded-t-lg hover:cursor-pointer ${
+                  jewe ? s.activeTab : s.notActiveTab
+                } group`}
+              >
+                Automotive
+              </p>
+            </li>
+          </ul>
         </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
+        <div className={`${elec ? s.activeProd : s.notActiveProd}`}>
+          <ProductGrid prodList={laptops} />
         </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
+        <div className={`${men ? s.activeProd : s.notActiveProd}`}>
+          <ProductGrid prodList={lighting} />
+        </div>
+        <div className={`${women ? s.activeProd : s.notActiveProd}`}>
+          <ProductGrid prodList={smartphones} />
+        </div>
+        <div className={`${jewe ? s.activeProd : s.notActiveProd}`}>
+          <ProductGrid prodList={automotive} />
         </div>
       </main>
     </>
-  )
+  );
+}
+export async function getServerSideProps() {
+  const laptops = await getproductsByCatagories("laptops");
+  const smartphones = await getproductsByCatagories("smartphones");
+  const lighting = await getproductsByCatagories("lighting");
+  const automotive = await getproductsByCatagories("automotive");
+
+  return {
+    props: { laptops, smartphones, lighting, automotive },
+  };
 }

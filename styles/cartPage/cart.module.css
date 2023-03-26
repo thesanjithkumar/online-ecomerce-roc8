@@ -1,0 +1,49 @@
+.productCard {
+  width: 98%;
+  min-height: 200px;
+  max-height: 400px;
+}
+.prodSection {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+  margin: auto;
+  padding: 10px;
+}
+
+.prodTitle {
+  font-size: 1.8rem;
+  width: 45%;
+  margin: auto;
+}
+
+.prodQuantPrice {
+  width: 45%;
+  margin: auto;
+  text-align: end;
+}
+
+.prodRatingRate {
+  font-size: 1.3rem;
+}
+
+.quantButtonDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+}
+
+.quantButton {
+  width: 30px;
+  height: 30px;
+  /* border-radius: 50%; */
+  border: 1px solid #000;
+  text-align: center;
+  background-color: #fff;
+  color: #000;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 5px;
+}

@@ -1,0 +1,35 @@
+.productCard {
+  display: flex;
+  flex-direction: row;
+  width: 98%;
+  min-height: 350px;
+  max-height: 500px;
+}
+
+.prodImage {
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain;
+}
+
+.prodDescriptionSection {
+  width: 50%;
+  height: auto;
+  margin: auto;
+  padding: 10px;
+  text-align: end;
+}
+
+.prodTitle {
+  font-size: 1.8rem;
+}
+
+.prodDescription {
+  overflow: hidden;
+  /* white-space: nowrap; */
+  text-overflow: ellipsis;
+}
+
+.prodRatingRate {
+  font-size: 1.3rem;
+}
